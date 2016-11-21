@@ -7,4 +7,5 @@ logging:
   file: logs/log-config.log
   level:
     org.springframework: info
+    org.springframework.boot.autoconfigure.logging.AutoConfigurationReportLoggingInitializer: info
     com.jusfoun: debug
