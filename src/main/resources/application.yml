@@ -12,3 +12,9 @@ logging:
     org.springframework: info
     org.springframework.boot.autoconfigure.logging.AutoConfigurationReportLoggingInitializer: info
     com.jusfoun: debug
+
+spring:
+  mail:
+    host: smtp.qiye.163.com
+    username: liutiyang@jusfoun.com
+    password:
