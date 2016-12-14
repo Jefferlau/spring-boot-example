@@ -13,28 +13,25 @@ import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
 /**
- * 当 Filter 无序时使用 ServletComponentScan 扫描即可。
- * 当 Filter 需要排序时，见 WebConfig 中的 FilterRegistrationBean 配置，
- * 此时 name 和 urlPatterns 都在 FilterRegistrationBean 里配置，order 越小越靠前。
  * @author 刘体阳 jefferlzu@gmail.com
  *         Created on 2016-12-05
  */
 
-@WebFilter(filterName = "myFilter", urlPatterns = {"/*"})
-public class MyFilter implements Filter {
-    private static Logger logger = LoggerFactory.getLogger(MyFilter.class);
+@WebFilter(filterName = "myFilter1", urlPatterns = {"/*"})
+public class MyFilter1 implements Filter {
+    private static Logger logger = LoggerFactory.getLogger(MyFilter1.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         if (logger.isInfoEnabled()) {
-            logger.info("--- filter init ---");
+            logger.info("--- filter1 init ---");
         }
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         if (logger.isInfoEnabled()) {
-            logger.info("--- do filter ---");
+            logger.info("--- do filter1 ---");
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
@@ -42,7 +39,7 @@ public class MyFilter implements Filter {
     @Override
     public void destroy() {
         if (logger.isInfoEnabled()) {
-            logger.info("--- filter destroy ---");
+            logger.info("--- filter1 destroy ---");
         }
     }
 }

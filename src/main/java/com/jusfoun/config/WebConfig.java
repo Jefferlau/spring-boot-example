@@ -38,4 +38,24 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
+
+  /*  @Bean
+    public FilterRegistrationBean myFilterRegistrationBean() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        MyFilter myFilter = new MyFilter();
+        registrationBean.setFilter(myFilter);
+        registrationBean.setOrder(Integer.MAX_VALUE);
+        return registrationBean;
+    }
+
+
+    @Bean
+    public FilterRegistrationBean myFilter1RegistrationBean() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        MyFilter1 myFilter = new MyFilter1();
+        registrationBean.setFilter(myFilter);
+        registrationBean.setOrder(Integer.MAX_VALUE - 1);
+        return registrationBean;
+    }*/
+
 }
