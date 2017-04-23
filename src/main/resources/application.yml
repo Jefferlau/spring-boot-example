@@ -7,7 +7,7 @@ server:
 debug: true
 
 logging:
-  file: logs/log-config.log
+  file: logs/spring-boot-example.log
   level:
     org.springframework: info
     org.springframework.boot.autoconfigure.logging.AutoConfigurationReportLoggingInitializer: info

@@ -4,21 +4,22 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.jusfoun</groupId>
-	<artifactId>log-config</artifactId>
+	<artifactId>spring-boot-example</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>log-config</name>
-	<description>Demo project for Spring Boot</description>
+	<name>Spring Boot examples</name>
+	<description>Spring Boot usage demo for Spring Boot</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.2.RELEASE</version>
+		<version>1.5.2.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
+        <docker.image.prefix>jefferlau</docker.image.prefix>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
@@ -52,6 +53,16 @@
             <version>2.6.1</version>
         </dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-remote-shell</artifactId>
+        </dependency>
+
         <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -67,7 +78,7 @@
 				<configuration>
                     <executable>true</executable>
                     <mainClass>com.jusfoun.Starter</mainClass>
-                    <finalName>log-config</finalName>
+                    <finalName>spring-boot-example</finalName>
                     <classifier>package</classifier>
                 </configuration>
                 <executions>
@@ -78,8 +89,41 @@
                     </execution>
                 </executions>
 			</plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.13</version>
+                <configuration>
+                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <!--<include>${project.build.finalName}.jar</include>-->
+                            <include>spring-boot-example-package.jar</include>
+                        </resource>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${basedir}/src/main/docker</directory>
+                            <include>application.yml</include>
+                            <include>app.conf</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 
-
+    <repositories>
+        <repository>
+            <id>nexus-aliyun</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <name>Nexus aliyun</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+        </repository>
+    </repositories>
 </project>

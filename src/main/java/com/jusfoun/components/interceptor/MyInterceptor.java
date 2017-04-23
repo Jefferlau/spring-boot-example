@@ -20,6 +20,8 @@ public class MyInterceptor implements HandlerInterceptor {
         if (logger.isInfoEnabled()) {
             logger.info("--- before controller ---");
         }
+
+        System.out.println(o.getClass().getPackage());
         return true;
     }
 
