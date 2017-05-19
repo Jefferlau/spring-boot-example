@@ -82,6 +82,6 @@ file:
       pdfTemplates: /Users/liutiyang/project/java/kemis/logistics-system/logistics-web/templates/
 
 server:
-  port: 8080
+  port: 8082
   tomcat:
     uri-encoding: UTF-8
