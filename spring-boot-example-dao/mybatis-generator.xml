@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <!-- !!!! Driver Class Path !!!! -->
+    <classPathEntry location="/Users/liutiyang/.m2/repository/mysql/mysql-connector-java/5.1.37/mysql-connector-java-5.1.37.jar"/>
+
+    <context id="context" targetRuntime="MyBatis3">
+
+        <!-- 关键字转义,默认用双引号 -->
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <!-- 实现 Serializable 增加 serialVersionUID -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!-- 生成toString方法 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <!-- 两个suppress的注释不要去除,否则生成的xml是追加模式 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="false"/>
+            <property name="suppressDate" value="false"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+        <!-- !!!! Database Configurations !!!! -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/spring_boot_example?autoReconnect=true&amp;characterEncoding=utf8&amp;characterSetResults=utf8&amp;zeroDateTimeBehavior=convertToNull"
+                        userId="root" password="12345678"/>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- !!!! Model Configurations !!!! -->
+        <javaModelGenerator targetPackage="com.jusfoun.model" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED">
+            <property name="constructorBased" value="true"/>
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+            <!-- 给Model添加一个父类 -->
+            <!--<property name="rootClass" value="com.jusfoun.model.Model"/>-->
+        </javaModelGenerator>
+
+        <!-- !!!! Mapper XML Configurations !!!! -->
+        <sqlMapGenerator targetPackage="com.jusfoun.mybatis.mapper" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!-- !!!! Mapper Interface Configurations !!!! -->
+        <javaClientGenerator targetPackage="com.jusfoun.dao.mapper" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED" type="MIXEDMAPPER">
+            <property name="enableSubPackages" value="false"/>
+            <!-- 为生成的接口添加父接口 -->
+            <property name="rootInterface" value="com.jusfoun.dao.BaseMapper"/>
+        </javaClientGenerator>
+
+        <!-- !!!! Table Configurations !!!! -->
+        <table tableName="user" enableCountByExample="true" enableDeleteByExample="true" enableSelectByExample="true"
+               enableUpdateByExample="true">
+            <!-- true 使用原名称 false 使用驼峰式属性命名 -->
+            <property name="useActualColumnNames" value="true"/>
+
+            <!-- optional   , only for mybatis3 runtime
+                 自动生成的键值（identity,或者序列值）
+               如果指定此元素，MBG将会生成<selectKey>元素，然后将此元素插入到SQL Map的<insert> 元素之中
+               sqlStatement 的语句将会返回新的值
+               如果是一个自增主键的话，你可以使用预定义的语句,或者添加自定义的SQL语句. 预定义的值如下:
+                  Cloudscape 	This will translate to: VALUES IDENTITY_VAL_LOCAL()
+                  DB2: 		VALUES IDENTITY_VAL_LOCAL()
+                  DB2_MF:		SELECT IDENTITY_VAL_LOCAL() FROM SYSIBM.SYSDUMMY1
+                  Derby: 		VALUES IDENTITY_VAL_LOCAL()
+                  HSQLDB: 	CALL IDENTITY()
+                  Informix: 	select dbinfo('sqlca.sqlerrd1') from systables where tabid=1
+                  MySql: 		SELECT LAST_INSERT_ID()
+                  SqlServer: 	SELECT SCOPE_IDENTITY()
+                  SYBASE: 	SELECT @@IDENTITY
+                  JDBC:		This will configure MBG to generate code for MyBatis3 suport of JDBC standard generated keys. This is a database independent method of obtaining the value from identity columns.
+
+                  identity: 自增主键  If true, then the column is flagged as an identity column and the generated <selectKey> element will be placed after the insert (for an identity column). If false, then the generated <selectKey> will be placed before the insert (typically for a sequence).
+
+            -->
+            <generatedKey column="userId" sqlStatement="MySql" identity="true"/>
+
+            <!-- optional.
+                    列的命名规则：
+                    MBG使用 <columnRenamingRule> 元素在计算列名的对应 名称之前，先对列名进行重命名，
+                    作用：一般需要对BUSI_CLIENT_NO 前的BUSI_进行过滤
+                    支持正在表达式
+                     searchString 表示要被换掉的字符串
+                     replaceString 则是要换成的字符串，默认情况下为空字符串，可选
+            -->
+            <!--<columnRenamingRule searchString="" replaceString=""/>-->
+
+
+            <!-- optional.告诉 MBG 忽略某一列
+                    column，需要忽略的列
+                    delimitedColumnName:true ,匹配column的值和数据库列的名称 大小写完全匹配，false 忽略大小写匹配
+                    是否限定表的列名，即固定表列在Model中的名称
+            -->
+            <!--<ignoreColumn column="nickname" delimitedColumnName="true"/>-->
+
+
+            <!--optional.覆盖MBG对Model 的生成规则
+                 column: 数据库的列名
+                 javaType: 对应的Java数据类型的完全限定名
+                 在必要的时候可以覆盖由JavaTypeResolver计算得到的java数据类型. For some databases, this is necessary to handle "odd" database types (e.g. MySql's unsigned bigint type should be mapped to java.lang.Object).
+                 jdbcType:该列的JDBC数据类型(INTEGER, DECIMAL, NUMERIC, VARCHAR, etc.)，该列可以覆盖由JavaTypeResolver计算得到的Jdbc类型，对某些数据库而言，对于处理特定的JDBC 驱动癖好 很有必要(e.g. DB2's LONGVARCHAR type should be mapped to VARCHAR for iBATIS).
+                 typeHandler:
+
+            -->
+            <!--<columnOverride column="username" javaType="String" jdbcType="varchar" typeHandler="" delimitedColumnName=""/>-->
+        </table>
+    </context>
+</generatorConfiguration>

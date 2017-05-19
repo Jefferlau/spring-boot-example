@@ -1,0 +1,65 @@
+2017-05-19 16:17:19.058  INFO 69603 --- [main] c.jusfoun.service.UserServiceMockTests   : Starting UserServiceMockTests on localhost with PID 69603 (started by liutiyang in /Users/liutiyang/project/java/laboratory/spring-boot-example/spring-boot-example-service)
+2017-05-19 16:17:19.065  INFO 69603 --- [main] c.jusfoun.service.UserServiceMockTests   : No active profile set, falling back to default profiles: default
+2017-05-19 16:17:19.095  INFO 69603 --- [main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@5677323c: startup date [Fri May 19 16:17:19 CST 2017]; root of context hierarchy
+2017-05-19 16:17:19.759  INFO 69603 --- [main] c.jusfoun.service.UserServiceMockTests   : Started UserServiceMockTests in 1.712 seconds (JVM running for 3.194)
+2017-05-19 16:17:19.767 ERROR 69603 --- [main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@553a3d88] to prepare test instance [com.jusfoun.service.UserServiceMockTests@4cf4d528]
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'com.jusfoun.service.UserServiceMockTests': Unsatisfied dependency expressed through field 'userService'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.jusfoun.service.impl.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:588)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireBeanProperties(AbstractAutowireCapableBeanFactory.java:386)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:118)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83)
+	at org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener.prepareTestInstance(SpringBootDependencyInjectionTestExecutionListener.java:44)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:287)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:289)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:247)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:94)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:191)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:68)
+	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:51)
+	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:242)
+	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70)
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.jusfoun.service.impl.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:1486)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1104)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585)
+	... 28 common frames omitted
+
+2017-05-19 16:17:19.784  INFO 69603 --- [Thread-1] s.c.a.AnnotationConfigApplicationContext : Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@5677323c: startup date [Fri May 19 16:17:19 CST 2017]; root of context hierarchy
+2017-05-19 16:49:22.895  INFO 69927 --- [main] c.jusfoun.service.UserServiceMockTests   : Starting UserServiceMockTests on localhost with PID 69927 (started by liutiyang in /Users/liutiyang/project/java/laboratory/spring-boot-example/spring-boot-example-service)
+2017-05-19 16:49:22.898  INFO 69927 --- [main] c.jusfoun.service.UserServiceMockTests   : No active profile set, falling back to default profiles: default
+2017-05-19 16:49:22.950  INFO 69927 --- [main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@6221a451: startup date [Fri May 19 16:49:22 CST 2017]; root of context hierarchy
+2017-05-19 16:49:23.662  INFO 69927 --- [main] c.jusfoun.service.UserServiceMockTests   : Started UserServiceMockTests in 1.668 seconds (JVM running for 3.04)
+2017-05-19 16:49:23.674  INFO 69927 --- [main] o.s.t.c.junit4.statements.SpringRepeat   : Repetition 1 of test UserServiceMockTests#testMockSelectById()
+2017-05-19 16:49:23.752  INFO 69927 --- [main] o.s.t.c.junit4.statements.SpringRepeat   : Repetition 2 of test UserServiceMockTests#testMockSelectById()
+2017-05-19 16:49:23.758  INFO 69927 --- [Thread-1] s.c.a.AnnotationConfigApplicationContext : Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@6221a451: startup date [Fri May 19 16:49:22 CST 2017]; root of context hierarchy
+2017-05-19 16:49:56.832  INFO 69938 --- [main] c.jusfoun.service.UserServiceMockTests   : Starting UserServiceMockTests on localhost with PID 69938 (started by liutiyang in /Users/liutiyang/project/java/laboratory/spring-boot-example/spring-boot-example-service)
+2017-05-19 16:49:56.834  INFO 69938 --- [main] c.jusfoun.service.UserServiceMockTests   : No active profile set, falling back to default profiles: default
+2017-05-19 16:49:56.878  INFO 69938 --- [main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@6221a451: startup date [Fri May 19 16:49:56 CST 2017]; root of context hierarchy
+2017-05-19 16:49:57.321  INFO 69938 --- [main] c.jusfoun.service.UserServiceMockTests   : Started UserServiceMockTests in 1.503 seconds (JVM running for 2.856)
+2017-05-19 16:49:57.326  INFO 69938 --- [main] o.s.t.c.junit4.statements.SpringRepeat   : Repetition 1 of test UserServiceMockTests#testMockSelectById()
+2017-05-19 16:49:57.406  INFO 69938 --- [main] o.s.t.c.junit4.statements.SpringRepeat   : Repetition 2 of test UserServiceMockTests#testMockSelectById()
+2017-05-19 16:49:57.414  INFO 69938 --- [Thread-1] s.c.a.AnnotationConfigApplicationContext : Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@6221a451: startup date [Fri May 19 16:49:56 CST 2017]; root of context hierarchy
+2017-05-19 16:50:55.134  INFO 69954 --- [main] com.jusfoun.service.UserServiceTests     : Starting UserServiceTests on localhost with PID 69954 (started by liutiyang in /Users/liutiyang/project/java/laboratory/spring-boot-example/spring-boot-example-service)
+2017-05-19 16:50:55.135  INFO 69954 --- [main] com.jusfoun.service.UserServiceTests     : No active profile set, falling back to default profiles: default
+2017-05-19 16:50:55.177  INFO 69954 --- [main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@25641d39: startup date [Fri May 19 16:50:55 CST 2017]; root of context hierarchy
+2017-05-19 16:50:55.768  INFO 69954 --- [main] com.jusfoun.service.UserServiceTests     : Started UserServiceTests in 1.549 seconds (JVM running for 2.868)
+2017-05-19 16:50:55.775  INFO 69954 --- [main] o.s.t.c.junit4.statements.SpringRepeat   : Repetition 1 of test UserServiceTests#testMockSelectById()
+2017-05-19 16:50:55.875  INFO 69954 --- [main] o.s.t.c.junit4.statements.SpringRepeat   : Repetition 2 of test UserServiceTests#testMockSelectById()
+2017-05-19 16:50:55.890  INFO 69954 --- [Thread-1] s.c.a.AnnotationConfigApplicationContext : Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@25641d39: startup date [Fri May 19 16:50:55 CST 2017]; root of context hierarchy
