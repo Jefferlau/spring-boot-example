@@ -13,7 +13,10 @@ import org.springframework.stereotype.Component;
 public class LogTask {
     private static Logger logger = LoggerFactory.getLogger(LogTask.class);
 
-    @Scheduled(cron = "0 0 0/1 * * ?")
+    /**
+     * 缩短定时任务执行间隔，便于查看执行效果。
+     */
+    @Scheduled(cron = "0 */5 * * * ?")
     public void WriteLog() {
         logger.debug("debug log message.");
         logger.info("info log message.");
