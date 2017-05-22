@@ -19,7 +19,7 @@ management:
 debug: true
 
 logging:
-  file: logs/spring-boot-example.log
+  file: logs/spring-boot-example-web.log
   level:
     org.springframework: info
     org.springframework.boot.autoconfigure.logging.AutoConfigurationReportLoggingInitializer: info
@@ -59,27 +59,13 @@ spring:
     # 合并多个DruidDataSource的监控数据
     #spring.datasource.useGlobalDataSourceStat=true
 
-  resources:
-      cache-period: 7200
-
   thymeleaf:
     cache: false
-
-  groovy:
-    template:
-      cache: false
 
   mail:
       host: smtp.qiye.163.com
       username: liutiyang@jusfoun.com
       password:
-
-file:
-  server:
-    url:
-      upload: /Users/liutiyang/project/java/kemis/logistics-system/upload
-      download: /Users/liutiyang/project/java/kemis/logistics-system/download
-      pdfTemplates: /Users/liutiyang/project/java/kemis/logistics-system/logistics-web/templates/
 
 server:
   port: 8080

@@ -28,6 +28,9 @@ components 包下
 
 # Docker
 
+首先，如果你还没有Docker请先下载它。可以跟随这个指南来获取Docker: [https://docs.docker.com/installation/]，然后在开发机上安装并运行。
+
+当然你也需要安装[Docker Compose](https//docs.docker.com/compose/)，这个指南将会帮到你: [https://docs.docker.com/compose/install/]。
 
 ```bash
 mkdir src/main/docker
@@ -35,7 +38,7 @@ tee src/main/docker/Dockerfile <<-'EOF'
 FROM java:8
 MAINTAINER Jeffer Lau
 VOLUME /tmp
-ADD spring-boot-example-package.jar app.jar
+ADD spring-boot-example-web-package.jar app.jar
 RUN sh -c 'touch /app.jar'
 ENV JAVA_OPTS=""
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
@@ -45,7 +48,7 @@ tee src/main/docker/Dockerfile <<-'EOF'
 FROM java:8
 MAINTAINER Jeffer Lau
 VOLUME /tmp
-ADD spring-boot-example-package.jar app.jar
+ADD spring-boot-example-web-package.jar app.jar
 COPY application.yml application.yml
 COPY app.conf app.conf
 RUN sh -c 'touch /app.jar'
@@ -54,16 +57,24 @@ RUN sh -c 'touch /app.conf'
 ENV JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom"
 ENTRYPOINT [ "sh", "-c", "/app.jar" ]
 EOF
-
+```
+单个项目启停操作
+```bash
 mvn clean package docker:build -e -DskipTests 
 
-docker run -p 8082:8082 -d --name spring_boot_example -t jefferlau/spring-boot-example
+docker run -p 8081:8081 -d --name spring-boot-example-web -t jefferlau/spring-boot-example-web
 docker ps
-docker stop spring_boot_example
-docker start spring_boot_example
+docker stop spring-boot-example-web
+docker start spring-boot-example-web
 
-docker exec -it spring_boot_example /bin/bash
+docker exec -it spring-boot-example-web /bin/bash
 
+```
+Docker 集群启停操作
+```bash
+mvn clean install -DskipTests
+cd docker && docker-compose up
+# docker-compose 操作详见 docker-compose help
 ```
 
 # Swagger

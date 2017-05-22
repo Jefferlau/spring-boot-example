@@ -1,7 +1,7 @@
 FROM java:8
 MAINTAINER Jeffer Lau
 VOLUME /tmp
-ADD spring-boot-example-package.jar app.jar
+ADD spring-boot-example-web-package.jar app.jar
 COPY application.yml application.yml
 COPY app.conf app.conf
 RUN sh -c 'touch /app.jar'

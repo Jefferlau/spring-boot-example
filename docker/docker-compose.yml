@@ -1,0 +1,8 @@
+web:
+  image: jefferlau/spring-boot-example-web
+  ports:
+    - "8081:8081"
+scheduler:
+  image: jefferlau/spring-boot-example-scheduler
+  ports:
+    - "8083:8083"
