@@ -16,32 +16,32 @@ public class UserDto implements Serializable {
 
     @ApiModelProperty(value = "编号", dataType = "string")
     @NotBlank(message = "-30003", groups = {Existing.class})
-    private String id;
+    private String userId;
 
     @ApiModelProperty(value = "姓名", dataType = "string")
     @NotBlank(message = "-30004", groups = {New.class})
-    private String name;
+    private String realName;
 
     @ApiModelProperty(value = "身份证号码", dataType = "string")
     @IdCardValid(message = "-30001", groups = {New.class})
     @NotBlank(message = "-30002", groups = {New.class})
     private String idCard;
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public UserDto setId(String id) {
-        this.id = id;
+    public UserDto setUserId(String userId) {
+        this.userId = userId;
         return this;
     }
 
-    public String getName() {
-        return name;
+    public String getRealName() {
+        return realName;
     }
 
-    public UserDto setName(String name) {
-        this.name = name;
+    public UserDto setRealName(String realName) {
+        this.realName = realName;
         return this;
     }
 
@@ -57,8 +57,8 @@ public class UserDto implements Serializable {
     @Override
     public String toString() {
         return "UserDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "userId=" + userId +
+                ", realName='" + realName + '\'' +
                 ", idCard=" + idCard +
                 '}';
     }
