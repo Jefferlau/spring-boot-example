@@ -17,7 +17,8 @@ spring:
     username: root
     password: 12345678
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/spring_boot_example?allowMultiQueries=true&autoReconnect=true&characterEncoding=utf8&characterSetResults=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    # 在 Docker 里部署时，这里的 mysql-host 对应的是 docker-compose.yml 文件里设置的 external_links 的别名
+    url: jdbc:mysql://mysql-host:3306/spring_boot_example?allowMultiQueries=true&autoReconnect=true&characterEncoding=utf8&characterSetResults=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
     initialize: false
     type: com.alibaba.druid.pool.DruidDataSource
     # 下面为连接池的补充设置，应用到上面所有数据源中# 初始化大小，最小，最大

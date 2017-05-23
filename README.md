@@ -32,18 +32,35 @@ components 包下
 
 当然你也需要安装[Docker Compose](https//docs.docker.com/compose/)，这个指南将会帮到你: [https://docs.docker.com/compose/install/]。
 
+## Docker MySQL
 ```bash
-mkdir src/main/docker
-tee src/main/docker/Dockerfile <<-'EOF'
-FROM java:8
-MAINTAINER Jeffer Lau
-VOLUME /tmp
-ADD spring-boot-example-web-package.jar app.jar
-RUN sh -c 'touch /app.jar'
-ENV JAVA_OPTS=""
-ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
-EOF
-# OR
+# MySQL 8
+docker pull mysql:8.0.1
+mkdir -p docker/mysql/8.0
+cd mysql
+docker run -p 3306:3306 --name jefferlau-mysql-8 -v $PWD/8.0:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=12345678 -d mysql:8.0.1
+```
+```bash
+# MySQL 5.7
+docker pull mysql:5.7.18
+mkdir -p docker/mysql/5.7
+cd mysql
+docker run -p 3306:3306 --name jefferlau-mysql-5.7 -v $PWD/5.7:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=12345678 -d mysql:5.7.18
+```
+*-v 是将宿主机目录挂载到 Docker 容器的指定目录*
+*$PWD 是命令执行当前目录*
+
+使用客户端工具连接 localhost:3306 端口，使用脚本 spring-boot-example-dao/src/main/resources/schema.sql 和 data.sql 初始化数据库。
+
+- [docker mysql](https://hub.docker.com/_/mysql/)
+- [跟我一起学Docker——Volume](https://www.binss.me/blog/learn-docker-with-me-about-volume/)
+
+## 项目
+
+### Dockerfile
+
+```bash
+mkdir -p src/main/docker
 tee src/main/docker/Dockerfile <<-'EOF'
 FROM java:8
 MAINTAINER Jeffer Lau
@@ -58,9 +75,30 @@ ENV JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom"
 ENTRYPOINT [ "sh", "-c", "/app.jar" ]
 EOF
 ```
-单个项目启停操作
+
+### 配置数据库连接
+详情见如下两个文件
+
+- docker/docker-compose.yml
+- web 和 sheduler 的 src/main/docker/application.yml
+
+docker-compose.yml 的 external_links 节点，参数格式跟 links 类似，使用服务名称（同时作为别名）或服务名称:服务别名 （SERVICE:ALIAS） 格式都可以。
+
+application.yml 里 datasource.url 的 hostname 就是上述的服务别名。
+
+### Docker 启停操作
+Docker 集群启停操作(建议)
 ```bash
-mvn clean package docker:build -e -DskipTests 
+mvn clean package -DskipTests
+cd docker && docker-compose up
+# 停止命令：
+# docker-compose up
+# docker-compose 操作详见 docker-compose help
+```
+
+单个项目编译及启停操作(不建议)
+```bash
+mvn clean package docker:build -DskipTests 
 
 docker run -p 8081:8081 -d --name spring-boot-example-web -t jefferlau/spring-boot-example-web
 docker ps
@@ -70,12 +108,10 @@ docker start spring-boot-example-web
 docker exec -it spring-boot-example-web /bin/bash
 
 ```
-Docker 集群启停操作
-```bash
-mvn clean install -DskipTests
-cd docker && docker-compose up
-# docker-compose 操作详见 docker-compose help
-```
+
+### 访问 WEB 项目
+
+浏览器打开链接地址： [http://localhost:8081/swagger-ui.html] 查看文档界面，在 user-controller -> GET /userInfo 接口，调用验证应用是否正常连接数据库。
 
 # Swagger
 
@@ -167,11 +203,11 @@ cd docker && docker-compose up
   - readOnly		
   - reference：参考``@ApiParam``配置项项
 
-[注解说明文档](https://github.com/swagger-api/swagger-core/wiki/Annotations#apimodel)
+- [注解说明文档](https://github.com/swagger-api/swagger-core/wiki/Annotations#apimodel)
 
-# Alibaba Druid
+# Alibaba Druid 参考文件
 
-[参考一](https://github.com/alibaba/druid/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
-[参考二](http://www.debugrun.com/a/48WqhXI.html)
-[参考三](http://www.bysocket.com/?p=1712)
-[参考四](https://ln0491.github.io/2017/03/06/spring-boot%E5%85%A5%E9%97%A8%E4%B8%83%E9%85%8D%E7%BD%AEalibaba-druid%E6%95%B0%E6%8D%AE%E6%BA%90/)
+- [https://github.com/alibaba/druid/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98]
+- [http://www.debugrun.com/a/48WqhXI.html]
+- [http://www.bysocket.com/?p=1712]
+- [https://ln0491.github.io/2017/03/06/spring-boot%E5%85%A5%E9%97%A8%E4%B8%83%E9%85%8D%E7%BD%AEalibaba-druid%E6%95%B0%E6%8D%AE%E6%BA%90/]

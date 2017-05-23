@@ -2,7 +2,11 @@ web:
   image: jefferlau/spring-boot-example-web
   ports:
     - "8081:8081"
+  external_links:
+    - jefferlau-mysql-5.7:mysql-host
 scheduler:
   image: jefferlau/spring-boot-example-scheduler
   ports:
     - "8083:8083"
+  external_links:
+    - jefferlau-mysql-5.7:mysql-host
