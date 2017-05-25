@@ -60,7 +60,7 @@ public class UserControllerTests {
         user.setUserId(userId);
         given(userService.selectByPrimaryKey(userId)).willReturn(user);
 
-        ResultActions resultActions = this.mvc.perform(get("/userInfo")
+        ResultActions resultActions = this.mvc.perform(get("/user/userInfo")
                 .param("id", userId)
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE));
 
@@ -82,7 +82,7 @@ public class UserControllerTests {
         user.setUsername("jefferlau");
         given(userService.selectByPrimaryKey(userId)).willReturn(user);
 
-        ResultActions resultActions = this.mvc.perform(get("/userInfoById")
+        ResultActions resultActions = this.mvc.perform(get("/user/userInfoById")
                 .param("userId", userId)
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE));
 
@@ -104,7 +104,7 @@ public class UserControllerTests {
         user.setUsername("jefferlau");
         given(userService.selectByPrimaryKey(userId)).willReturn(user);
 
-        ResultActions resultActions = this.mvc.perform(get("/userInfo/" + userId)
+        ResultActions resultActions = this.mvc.perform(get("/user/userInfo/" + userId)
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE));
 
         resultActions
@@ -136,7 +136,7 @@ public class UserControllerTests {
 
         System.out.println(requestBody);
 
-        ResultActions resultActions = this.mvc.perform(post("/userInfo")
+        ResultActions resultActions = this.mvc.perform(post("/user/userInfo")
                 .content(requestBody)
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE));
@@ -165,7 +165,7 @@ public class UserControllerTests {
 
         given(userService.updateByPrimaryKeySelective(user)).willReturn(1);
 
-        ResultActions resultActions = this.mvc.perform(put("/userInfo")
+        ResultActions resultActions = this.mvc.perform(put("/user/userInfo")
                 .param("userId", UUID.randomUUID().toString())
                 .param("realName", user.getRealName())
                 .param("idCard", user.getIdCard())

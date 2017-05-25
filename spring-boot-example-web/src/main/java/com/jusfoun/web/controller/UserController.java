@@ -1,9 +1,9 @@
 package com.jusfoun.web.controller;
 
-import com.jusfoun.web.dto.UserDto;
 import com.jusfoun.model.User;
-import com.jusfoun.web.response.BaseResponse;
 import com.jusfoun.service.impl.UserService;
+import com.jusfoun.web.dto.UserDto;
+import com.jusfoun.web.response.BaseResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -14,7 +14,15 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
@@ -23,6 +31,7 @@ import java.util.UUID;
  */
 @Api("用户相关接口")
 @RestController
+@RequestMapping("user")
 public class UserController {
 
     private static Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -85,6 +94,8 @@ public class UserController {
         User user = new User();
         BeanUtils.copyProperties(userDto, user);
         user.setUserId(UUID.randomUUID().toString());
+
+
 
         userService.insertSelective(user);
 

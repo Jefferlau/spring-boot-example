@@ -22,6 +22,10 @@ public class UserDto implements Serializable {
     @NotBlank(message = "-30004", groups = {New.class})
     private String realName;
 
+    @ApiModelProperty(value = "密码", dataType = "string")
+    @NotBlank(message = "-30005", groups = {New.class})
+    private String password;
+
     @ApiModelProperty(value = "身份证号码", dataType = "string")
     @IdCardValid(message = "-30001", groups = {New.class})
     @NotBlank(message = "-30002", groups = {New.class})
@@ -42,6 +46,15 @@ public class UserDto implements Serializable {
 
     public UserDto setRealName(String realName) {
         this.realName = realName;
+        return this;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public UserDto setPassword(String password) {
+        this.password = password;
         return this;
     }
 

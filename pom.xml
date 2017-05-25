@@ -46,6 +46,7 @@
         <module>spring-boot-example-service</module>
         <module>spring-boot-example-web</module>
         <module>spring-boot-example-scheduler</module>
+        <module>spring-boot-example-auth-server</module>
     </modules>
 
     <properties>

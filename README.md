@@ -211,3 +211,10 @@ docker exec -it spring-boot-example-web /bin/bash
 - [http://www.debugrun.com/a/48WqhXI.html]()
 - [http://www.bysocket.com/?p=1712]()
 - [https://ln0491.github.io/2017/03/06/spring-boot%E5%85%A5%E9%97%A8%E4%B8%83%E9%85%8D%E7%BD%AEalibaba-druid%E6%95%B0%E6%8D%AE%E6%BA%90/]()
+
+# OAuth
+
+```bash
+curl -u sample-client:secret http://localhost:8084/oauth/token -d "username=admin&password=123456&scope=write&grant_type=password"
+curl http://localhost:8080/userinfo/93201214-3b98-11e7-8b90-efc0f68ee6d7 -H "Authorization: bearer 7e7b7ced-3747-43a2-8134-c7e6b87c6451"
+```

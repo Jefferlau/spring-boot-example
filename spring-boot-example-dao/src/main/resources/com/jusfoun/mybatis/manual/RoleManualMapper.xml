@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jusfoun.dao.mapper.RoleMapper" >
+    <resultMap id="RoleResultMap" type="com.jusfoun.bean.RoleExtension">
+        <id property="roleId" column="roleId" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="roleName" column="roleName" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="roleDesc" column="roleDesc" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="permissionName" column="permissionName" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <collection property="modules" ofType="com.jusfoun.model.Module" column="moduleId" javaType="ArrayList" jdbcType="INTEGER">
+            <id property="moduleId" column="moduleId" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <result property="moduleName" column="moduleName" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <result property="moduleUrl" column="moduleUrl" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+
+    <select id="selectRoleExtensionByUserId" resultMap="RoleResultMap">
+        SELECT ro.roleId, ro.roleName, ro.roleDesc, ro.RoleParentId, ro.permissionName, sm.moduleId, sm.moduleName, sm.moduleUrl
+        FROM role ro
+        LEFT JOIN user_has_role uhr ON ro.roleId = uhr.roleId
+        LEFT JOIN role_has_module rhm ON rhm.roleId = ro.roleId
+        LEFT JOIN module sm ON sm.moduleId = rhm.moduleId
+        WHERE  uhr.userId =  #{userId}
+    </select>
+</mapper>

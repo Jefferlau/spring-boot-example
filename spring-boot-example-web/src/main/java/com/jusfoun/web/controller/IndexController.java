@@ -29,6 +29,6 @@ public class IndexController {
     @ApiResponses({@ApiResponse(code = 400, message = "", response = ErrorResponse.class)})
     @RequestMapping(value = "exceptionExample")
     public BaseResponse exceptionExample() {
-            throw  new RestException(ExceptionMessage.ParseDataError.getCode());
+            throw  new RestException(ExceptionMessage.RealNameEmpty.getCode());
     }
 }

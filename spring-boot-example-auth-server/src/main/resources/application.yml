@@ -19,7 +19,7 @@ management:
 debug: true
 
 logging:
-  file: logs/spring-boot-example-web.log
+  file: logs/spring-boot-example-auth-server.log
   level:
     org.springframework: info
     org.springframework.boot.autoconfigure.logging.AutoConfigurationReportLoggingInitializer: info
@@ -68,20 +68,17 @@ spring:
       password:
 
 server:
-  port: 8080
+  port: 8084
   tomcat:
     uri-encoding: UTF-8
 
-auth:
-  client:
-    clientId: sample-client
-    clientSecret: secret
-    accessTokenUri: http://localhost:8084/oauth/token
-    userAuthorizationUri: http://localhost:8084/oauth/authorize
-    authenticationScheme: query
-    clientAuthenticationScheme: form
-#    pre-established-redirect-uri: http://localhost:8090/login/github
-#    registered-redirect-uri: http://localhost:8090/login/github
-#    use-current-uri: false
-  resource:
-    userInfoUri: http://localhost:8080/user
+security:
+  oauth2:
+    client:
+      client-id: sample-client
+      client-secret: secret
+      scope: read,write
+      auto-approve-scopes: '.*'
+      grant-type: password
+  basic:
+    enabled: false
