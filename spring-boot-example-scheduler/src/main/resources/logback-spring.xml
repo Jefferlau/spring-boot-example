@@ -3,11 +3,30 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+        <!-- 临界值过滤器，过滤掉低于指定临界值的日志 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
     <appender name="ROLLING-FILE"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
         </encoder>
+        <!-- 级别过滤器，根据日志级别进行过滤 -->
+        <!-- 如果返回DENY，那么记录事件立即被抛弃，不再经过剩余过滤器；-->
+        <!-- 如果返回NEUTRAL，那么有序列表里的下一个过滤器会接着处理记录事件；-->
+        <!-- 如果返回ACCEPT，那么记录事件被立即处理，不再经过剩余过滤器。-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
         <file>${LOG_FILE}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
@@ -15,9 +34,9 @@
         </rollingPolicy>
     </appender>
 
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="ROLLING-FILE"/>
+        <appender-ref ref="ROLLING-FILE" />
     </root>
 
 </configuration>
