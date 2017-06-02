@@ -9,7 +9,7 @@
         </encoder>
         <!-- 临界值过滤器，过滤掉低于指定临界值的日志 -->
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
+            <level>TRACE</level>
         </filter>
     </appender>
 
@@ -28,13 +28,15 @@
             <onMismatch>DENY</onMismatch>
         </filter>
         <file>${LOG_FILE}</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <MaxFileSize>10MB</MaxFileSize>
         </rollingPolicy>
     </appender>
 
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="ROLLING-FILE" />
     </root>
