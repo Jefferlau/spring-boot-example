@@ -16,15 +16,15 @@ public class BaseResponse<T> {
     @ApiModelProperty(value = "响应数据对象，不同接口返回对象可能不同。", dataType = "object")
     private T data;
 
-    public static BaseResponse instanceSuccess() {
-        return new BaseResponse<>().setCode(0).setMessage("success");
+    public BaseResponse() {
+        this.setCode(0).setMessage("success");
     }
 
     public int getCode() {
         return code;
     }
 
-    public BaseResponse setCode(int code) {
+    public BaseResponse<T> setCode(int code) {
         this.code = code;
         return this;
     }
@@ -33,7 +33,7 @@ public class BaseResponse<T> {
         return message;
     }
 
-    public BaseResponse setMessage(String message) {
+    public BaseResponse<T> setMessage(String message) {
         this.message = message;
         return this;
     }
@@ -42,7 +42,7 @@ public class BaseResponse<T> {
         return data;
     }
 
-    public BaseResponse setData(T data) {
+    public BaseResponse<T> setData(T data) {
         this.data = data;
         return this;
     }

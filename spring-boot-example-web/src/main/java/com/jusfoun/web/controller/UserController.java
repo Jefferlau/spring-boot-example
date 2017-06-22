@@ -53,8 +53,12 @@ public class UserController {
             logger.debug("Query user by id: " + id);
         }
 
-        return BaseResponse.instanceSuccess()
-                .setData(userService.selectByPrimaryKey(id));
+        User user = userService.selectByPrimaryKey(id);
+        UserDto userDto = new UserDto();
+        BeanUtils.copyProperties(user, userDto);
+
+        BaseResponse<UserDto> baseResponse = new BaseResponse<>();
+        return baseResponse.setData(userDto);
     }
 
     @ApiOperation(value = "ModelAttribute", notes = "ModelAttribute 接收单个参数。")
@@ -67,8 +71,11 @@ public class UserController {
             logger.debug("Query user by id: " + userDto.getUserId());
         }
 
-        return BaseResponse.instanceSuccess()
-                .setData(userService.selectByPrimaryKey(userDto.getUserId()));
+        User user = userService.selectByPrimaryKey(userDto.getUserId());
+        BeanUtils.copyProperties(user, userDto);
+
+        BaseResponse<UserDto> baseResponse = new BaseResponse<>();
+        return baseResponse.setData(userDto);
     }
 
     @ApiOperation(value = "PathVariable", notes = "PathVariable 接口示例，参数无默认值")
@@ -77,12 +84,7 @@ public class UserController {
     })
     @GetMapping("/userInfo/{id}")
     public BaseResponse<UserDto> infoPath(@PathVariable("id")  String id) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("Query user by id: " + id);
-        }
-
-        return BaseResponse.instanceSuccess()
-                .setData(userService.selectByPrimaryKey(id));
+        return info(id);
     }
 
     @ApiOperation(value = "RequestBody", notes = "RequestBody 接口示例，参数无默认值")
@@ -95,16 +97,16 @@ public class UserController {
         BeanUtils.copyProperties(userDto, user);
         user.setUserId(UUID.randomUUID().toString());
 
-
-
         userService.insertSelective(user);
 
         if (logger.isDebugEnabled()) {
             logger.debug("Save user: " + user);
         }
 
-        return BaseResponse.instanceSuccess()
-                .setData(user);
+        BeanUtils.copyProperties(user, userDto);
+
+        BaseResponse<UserDto> baseResponse = new BaseResponse<>();
+        return baseResponse.setData(userDto);
     }
 
     @ApiOperation(value = "ModelAttribute", notes = "ModelAttribute 将数据绑定到对象。")
@@ -124,7 +126,9 @@ public class UserController {
             logger.debug("Update user: " + user);
         }
 
-        return BaseResponse.instanceSuccess()
-                .setData(user);
+        BeanUtils.copyProperties(user, userDto);
+
+        BaseResponse<UserDto> baseResponse = new BaseResponse<>();
+        return baseResponse.setData(userDto);
     }
 }

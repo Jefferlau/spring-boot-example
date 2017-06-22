@@ -1,5 +1,6 @@
 package com.jusfoun.web.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jusfoun.web.validation.IdCardValid;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,6 +25,7 @@ public class UserDto implements Serializable {
 
     @ApiModelProperty(value = "密码", dataType = "string")
     @NotBlank(message = "-30005", groups = {New.class})
+    @JsonIgnore
     private String password;
 
     @ApiModelProperty(value = "身份证号码", dataType = "string")

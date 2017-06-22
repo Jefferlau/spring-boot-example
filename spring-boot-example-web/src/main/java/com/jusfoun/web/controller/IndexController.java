@@ -22,7 +22,7 @@ public class IndexController {
 
     @GetMapping("/")
     public BaseResponse index() {
-        return BaseResponse.instanceSuccess();
+        return new BaseResponse();
     }
 
     @ApiOperation(value = "异常示例", notes = "异常时返回的数据示例。")
