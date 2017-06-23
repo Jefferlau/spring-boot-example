@@ -1,12 +1,24 @@
 package com.jusfoun.config;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.cfg.MapperConfig;
+import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
 import com.jusfoun.web.components.interceptor.MyInterceptor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import java.io.IOException;
 
 /**
  * @author 刘体阳 jefferlzu@gmail.com
@@ -50,4 +62,38 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         return registrationBean;
     }*/
 
+    @Bean
+    public MappingJackson2HttpMessageConverter messageConverter() {
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        ObjectMapper mapper = new ObjectMapper();
+        // null 值转成 ""
+        mapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>() {
+            @Override
+            public void serialize(Object value, JsonGenerator jg, SerializerProvider sp) throws IOException {
+                jg.writeString("");
+            }
+        });
+        // key 首字母大写
+        mapper.setPropertyNamingStrategy(new PropertyNamingStrategy() {
+            private static final long serialVersionUID = -9040447651806412079L;
+            // 序列化时调用
+            @Override
+            public String nameForGetterMethod(MapperConfig<?> config, AnnotatedMethod method, String defaultName) {
+                Class<?> declaringClass = method.getDeclaringClass();
+                String packageName = declaringClass.getPackage().getName();
+                String className = declaringClass.getName();
+                System.out.println(packageName);
+                System.out.println(className);
+                return super.nameForGetterMethod(config, method, StringUtils.capitalize(defaultName));
+            }
+            // 反序列化时调用
+            @Override
+            public String nameForSetterMethod(MapperConfig<?> config, AnnotatedMethod method, String defaultName) {
+                return super.nameForSetterMethod(config, method, StringUtils.uncapitalize(defaultName));
+            }
+        });
+
+        converter.setObjectMapper(mapper);
+        return converter;
+    }
 }
