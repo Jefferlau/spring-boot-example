@@ -59,6 +59,7 @@
         <pagehelper.version>4.1.6</pagehelper.version>
         <druid.version>1.0.31</druid.version>
         <swagger.version>2.6.1</swagger.version>
+        <okhttp.version>3.8.1</okhttp.version>
     </properties>
 
     <dependencyManagement>
@@ -98,6 +99,12 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>${swagger.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
             </dependency>
 
         </dependencies>
