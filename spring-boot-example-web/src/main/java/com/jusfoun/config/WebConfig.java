@@ -67,14 +67,14 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         ObjectMapper mapper = new ObjectMapper();
         // null 值转成 ""
-        mapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>() {
+        /*mapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>() {
             @Override
             public void serialize(Object value, JsonGenerator jg, SerializerProvider sp) throws IOException {
                 jg.writeString("");
             }
-        });
+        });*/
         // key 首字母大写
-        mapper.setPropertyNamingStrategy(new PropertyNamingStrategy() {
+        /*mapper.setPropertyNamingStrategy(new PropertyNamingStrategy() {
             private static final long serialVersionUID = -9040447651806412079L;
             // 序列化时调用
             @Override
@@ -91,7 +91,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
             public String nameForSetterMethod(MapperConfig<?> config, AnnotatedMethod method, String defaultName) {
                 return super.nameForSetterMethod(config, method, StringUtils.uncapitalize(defaultName));
             }
-        });
+        });*/
 
         converter.setObjectMapper(mapper);
         return converter;
