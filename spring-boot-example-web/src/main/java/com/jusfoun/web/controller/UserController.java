@@ -1,6 +1,5 @@
 package com.jusfoun.web.controller;
 
-import com.jusfoun.service.impl.UserService;
 import com.jusfoun.web.dto.UserDto;
 import com.jusfoun.web.response.BaseResponse;
 import com.jusfoun.web.service.UserManageService;
