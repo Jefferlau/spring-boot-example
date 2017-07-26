@@ -10,7 +10,9 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author 刘体阳 jefferlzu@gmail.com
@@ -30,5 +32,12 @@ public class IndexController {
     @RequestMapping(value = "exceptionExample")
     public BaseResponse exceptionExample() {
             throw  new RestException(ExceptionMessage.RealNameEmpty.getCode());
+    }
+
+    @GetMapping("index")
+    public ModelAndView index(@RequestParam(value = "name", required = false, defaultValue = "here") String name){
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("name", name);
+        return modelAndView;
     }
 }
